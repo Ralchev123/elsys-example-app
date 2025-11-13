@@ -50,10 +50,13 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner | lower }}/elsys-example-app:latest .
-          docker tag ghcr.io/${{ github.repository_owner | lower }}/elsys-example-app:latest ghcr.io/${{ github.repository_owner | lower }}/elsys-example-app:${{ github.sha }}
+          IMAGE_OWNER=${{ toLower(github.repository_owner) }}
+          docker build -t ghcr.io/$IMAGE_OWNER/elsys-example-app:latest .
+          docker tag ghcr.io/$IMAGE_OWNER/elsys-example-app:latest ghcr.io/$IMAGE_OWNER/elsys-example-app:${{ github.sha }}
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ github.repository_owner | lower }}/elsys-example-app:latest
-          docker push ghcr.io/${{ github.repository_owner | lower }}/elsys-example-app:${{ github.sha }}
+          IMAGE_OWNER=${{ toLower(github.repository_owner) }}
+          docker push ghcr.io/$IMAGE_OWNER/elsys-example-app:latest
+          docker push ghcr.io/$IMAGE_OWNER/elsys-example-app:${{ github.sha }}
+
